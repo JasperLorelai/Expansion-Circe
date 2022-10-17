@@ -52,7 +52,7 @@ public class Tokenizer {
                 break;
             }
             if (hasMatch) continue;
-            throw new UnknownTokenException(string);
+            throw new UnknownTokenException("Unknown token: " + string);
         }
     }
 

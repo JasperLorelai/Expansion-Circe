@@ -18,8 +18,8 @@ public class PushFunction extends Function {
     @Override
     public List<ParameterType> getParameterTypes() {
         return List.of(
-            ParameterType.create(NodeType.ARRAY),
-            ParameterType.create(NodeType.STRING)
+            NodeType.ARRAY.asParameterType(),
+            ParameterType.create(NodeType.STRING, NodeType.NUMBER)
         );
     }
 
