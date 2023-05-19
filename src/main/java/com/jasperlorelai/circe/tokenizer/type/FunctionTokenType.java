@@ -34,6 +34,8 @@ public enum FunctionTokenType implements TokenType {
     ENDS_WITH(EndsWithFunction.class),
     LOWERCASE(LowercaseFunction.class),
     MATCH(MatchFunction.class),
+    PAD_END(PadEndFunction.class),
+    PAD_START(PadStartFunction.class),
     REPEAT(RepeatFunction.class),
     REPLACE_FIRST(ReplaceFirstFunction.class),
     REPLACE_ALL(ReplaceAllFunction.class),
