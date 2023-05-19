@@ -16,7 +16,7 @@ public class CirceExpansion extends PlaceholderExpansion {
 
     private static final String IDENTIFIER = "circe";
     private static final String AUTHOR = "JasperLorelai";
-    private static final String VERSION = "0.0.1";
+    private static final String VERSION = "0.1.0";
     private static final String NAME = "Circe";
 
     @NotNull
