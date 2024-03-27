@@ -17,12 +17,6 @@ public class Parser {
     private Tokenizer tokenizer;
     private Token lookahead;
 
-    private Parser() {}
-
-    public static Parser create() {
-        return new Parser();
-    }
-
     private Token nextToken() {
         return (lookahead = tokenizer.getNextToken());
     }

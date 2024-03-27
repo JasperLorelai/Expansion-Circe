@@ -61,7 +61,7 @@ public class CirceExpansion extends PlaceholderExpansion {
                 code = string.toString();
                 reader.close();
             } catch (SecurityException | IOException e) {
-                e.printStackTrace();
+                severe("Failed read file: circe/" + fileName + ".circe");
             }
         }
 
@@ -70,9 +70,9 @@ public class CirceExpansion extends PlaceholderExpansion {
         if (hasDebug) code = code.replaceFirst("debug;", "");
 
         try {
-            code = Parser.create().parse(code);
+            code = new Parser().parse(code);
         } catch (UnknownTokenException | ParserException | FunctionCallException exception) {
-            return hasDebug ? exception.getMessage() : "";
+            if (hasDebug) return exception.getClass().getSimpleName() + ": " + exception.getMessage();
         }
         return bracketPlaceholders(player, code);
     }

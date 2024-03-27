@@ -1,25 +1,37 @@
 plugins {
     id "java"
-    id "maven-publish"
+    id "com.github.johnrengelman.shadow" version "8.1.1"
 }
-
-version = "0.1.0"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
+
     maven {url = "https://jitpack.io"}
     maven {url = "https://papermc.io/repo/repository/maven-public/"}
     maven {url = "https://repo.extendedclip.com/content/repositories/placeholderapi/"}
 }
 
 dependencies {
-    compileOnly "io.papermc.paper:paper-api:1.19.2-R0.1-SNAPSHOT"
-    compileOnly "me.clip:placeholderapi:2.11.2"
-    implementation "net.objecthunter:exp4j:0.4.8"
+    implementation("me.clip:placeholderapi:2.11.2")
+    implementation("io.papermc.paper:paper-api:1.20.2-R0.1-SNAPSHOT")
+
+    shadow("net.objecthunter:exp4j:0.4.8")
+}
+
+shadowJar {
+    configurations = [project.configurations.shadow]
+
+    relocate("net.objecthunter.exp4j", "com.jasperlorelai.circe.shaded.net.objecthunter.exp4j")
+
+    archiveClassifier.set("")
+}
+
+artifacts {
+    archives shadowJar
 }
