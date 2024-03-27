@@ -12,41 +12,41 @@ import eu.jasperlorelai.circe.parser.expression.StringLiteralNode;
 
 public class LastIndexOfFunction extends Function {
 
-    private StringLiteralNode string;
-    private ArrayNode array;
-    private StringLiteralNode elementString;
-    private NumberLiteralNode elementNumber;
+	private StringLiteralNode string;
+	private ArrayNode array;
+	private StringLiteralNode elementString;
+	private NumberLiteralNode elementNumber;
 
-    @NotNull
-    @Override
-    public ParameterType getTargetType() {
-        return ParameterType.create(NodeType.STRING, NodeType.ARRAY);
-    }
+	@NotNull
+	@Override
+	public ParameterType getTargetType() {
+		return ParameterType.create(NodeType.STRING, NodeType.ARRAY);
+	}
 
-    @Override
-    public void initializeTarget(ExpressionNode target) {
-        string = castString(target);
-        array = castArray(target);
-    }
+	@Override
+	public void initializeTarget(ExpressionNode target) {
+		string = castString(target);
+		array = castArray(target);
+	}
 
-    @NotNull
-    @Override
-    public List<ParameterType> getParameterTypes() {
-        return List.of(ParameterType.create(NodeType.STRING, NodeType.NUMBER));
-    }
+	@NotNull
+	@Override
+	public List<ParameterType> getParameterTypes() {
+		return List.of(ParameterType.create(NodeType.STRING, NodeType.NUMBER));
+	}
 
-    @Override
-    public void initializeArguments(List<ExpressionNode> arguments) {
-        elementString = castString(arguments.get(0));
-        elementNumber = castNumber(arguments.get(0));
-    }
+	@Override
+	public void initializeArguments(List<ExpressionNode> arguments) {
+		elementString = castString(arguments.get(0));
+		elementNumber = castNumber(arguments.get(0));
+	}
 
-    @NotNull
-    @Override
-    public ExpressionNode execute() {
-        ExpressionNode node = elementString == null ? elementNumber : elementString;
-        if (string == null) return numberNode(array.stringArray().lastIndexOf(node.value()));
-        else return numberNode(string.quoteless().lastIndexOf(valueQuoteless(node)));
-    }
+	@NotNull
+	@Override
+	public ExpressionNode execute() {
+		ExpressionNode node = elementString == null ? elementNumber : elementString;
+		if (string == null) return numberNode(array.stringArray().lastIndexOf(node.value()));
+		else return numberNode(string.quoteless().lastIndexOf(valueQuoteless(node)));
+	}
 
 }

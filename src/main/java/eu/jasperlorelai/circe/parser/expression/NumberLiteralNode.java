@@ -6,33 +6,33 @@ import eu.jasperlorelai.circe.parser.expression.util.*;
 
 public class NumberLiteralNode implements ExpressionNode {
 
-    private final String valueString;
-    private final double valueDouble;
-    private final int valueInteger;
+	private final String valueString;
+	private final double valueDouble;
+	private final int valueInteger;
 
-    public NumberLiteralNode(String value) {
-        valueString = value;
-        valueDouble = Double.parseDouble(value);
-        valueInteger = (int) Math.round(valueDouble);
-    }
+	public NumberLiteralNode(String value) {
+		valueString = value;
+		valueDouble = Double.parseDouble(value);
+		valueInteger = (int) Math.round(valueDouble);
+	}
 
-    @NotNull
-    @Override
-    public NodeType getType() {
-        return NodeType.NUMBER;
-    }
+	@NotNull
+	@Override
+	public NodeType getType() {
+		return NodeType.NUMBER;
+	}
 
-    @NotNull
-    public String value() {
-        return valueString;
-    }
+	@NotNull
+	public String value() {
+		return valueString;
+	}
 
-    public double valueDouble() {
-        return valueDouble;
-    }
+	public double valueDouble() {
+		return valueDouble;
+	}
 
-    public int valueInteger() {
-        return valueInteger;
-    }
+	public int valueInteger() {
+		return valueInteger;
+	}
 
 }

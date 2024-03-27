@@ -6,20 +6,20 @@ import eu.jasperlorelai.circe.parser.expression.util.*;
 
 public record StringLiteralNode(String value) implements ExpressionNode {
 
-    @NotNull
-    @Override
-    public NodeType getType() {
-        return NodeType.STRING;
-    }
+	@NotNull
+	@Override
+	public NodeType getType() {
+		return NodeType.STRING;
+	}
 
-    public String quoteless() {
-        return value.substring(1, value.length() - 1).replaceAll("\\\\\"", "\"");
-    }
+	public String quoteless() {
+		return value.substring(1, value.length() - 1).replaceAll("\\\\\"", "\"");
+	}
 
-    @Override
-    @NotNull
-    public String value() {
-        return value;
-    }
+	@Override
+	@NotNull
+	public String value() {
+		return value;
+	}
 
 }

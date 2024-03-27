@@ -11,44 +11,44 @@ import eu.jasperlorelai.circe.parser.expression.StringLiteralNode;
 
 public class SubstringFunction extends Function {
 
-    private StringLiteralNode string;
-    private NumberLiteralNode startIndex;
-    private NumberLiteralNode endIndex;
+	private StringLiteralNode string;
+	private NumberLiteralNode startIndex;
+	private NumberLiteralNode endIndex;
 
-    @NotNull
-    @Override
-    public ParameterType getTargetType() {
-        return NodeType.STRING.asParameterType();
-    }
+	@NotNull
+	@Override
+	public ParameterType getTargetType() {
+		return NodeType.STRING.asParameterType();
+	}
 
-    @Override
-    public void initializeTarget(ExpressionNode target) {
-        string = castString(target);
-    }
+	@Override
+	public void initializeTarget(ExpressionNode target) {
+		string = castString(target);
+	}
 
-    @NotNull
-    @Override
-    public List<ParameterType> getParameterTypes() {
-        return List.of(
-            NodeType.NUMBER.asParameterType(),
-            NodeType.NUMBER.asParameterType()
-        );
-    }
+	@NotNull
+	@Override
+	public List<ParameterType> getParameterTypes() {
+		return List.of(
+				NodeType.NUMBER.asParameterType(),
+				NodeType.NUMBER.asParameterType()
+		);
+	}
 
-    @Override
-    public void initializeArguments(List<ExpressionNode> arguments) {
-        startIndex = castNumber(arguments.get(0));
-        endIndex = castNumber(arguments.get(1));
-    }
+	@Override
+	public void initializeArguments(List<ExpressionNode> arguments) {
+		startIndex = castNumber(arguments.get(0));
+		endIndex = castNumber(arguments.get(1));
+	}
 
-    @NotNull
-    @Override
-    public ExpressionNode execute() {
-        try {
-            return stringNode(string.quoteless().substring(startIndex.valueInteger(), endIndex.valueInteger()));
-        } catch (IndexOutOfBoundsException e) {
-            throw formatException(e);
-        }
-    }
+	@NotNull
+	@Override
+	public ExpressionNode execute() {
+		try {
+			return stringNode(string.quoteless().substring(startIndex.valueInteger(), endIndex.valueInteger()));
+		} catch (IndexOutOfBoundsException e) {
+			throw formatException(e);
+		}
+	}
 
 }

@@ -14,67 +14,67 @@ import eu.jasperlorelai.circe.exeption.FunctionCallException;
  */
 public abstract class Function {
 
-    private final String functionName;
+	private final String functionName;
 
-    public Function() {
-        String name = getClass().getSimpleName();
-        functionName = Character.toLowerCase(name.charAt(0)) + name.substring(1, name.lastIndexOf("Function"));
-    }
+	public Function() {
+		String name = getClass().getSimpleName();
+		functionName = Character.toLowerCase(name.charAt(0)) + name.substring(1, name.lastIndexOf("Function"));
+	}
 
-    @NotNull
-    public abstract ParameterType getTargetType();
+	@NotNull
+	public abstract ParameterType getTargetType();
 
-    @NotNull
-    public abstract List<ParameterType> getParameterTypes();
+	@NotNull
+	public abstract List<ParameterType> getParameterTypes();
 
-    public abstract void initializeTarget(ExpressionNode target);
+	public abstract void initializeTarget(ExpressionNode target);
 
-    public abstract void initializeArguments(List<ExpressionNode> arguments);
+	public abstract void initializeArguments(List<ExpressionNode> arguments);
 
-    @NotNull
-    public abstract ExpressionNode execute();
+	@NotNull
+	public abstract ExpressionNode execute();
 
-    protected FunctionCallException formatException(RuntimeException exception) {
-        return new FunctionCallException(functionName + ": \"" + exception.getMessage() + '"');
-    }
+	protected FunctionCallException formatException(RuntimeException exception) {
+		return new FunctionCallException(functionName + ": \"" + exception.getMessage() + '"');
+	}
 
-    protected StringLiteralNode castString(ExpressionNode node) {
-        return node instanceof StringLiteralNode string ? string : null;
-    }
+	protected StringLiteralNode castString(ExpressionNode node) {
+		return node instanceof StringLiteralNode string ? string : null;
+	}
 
-    protected NumberLiteralNode castNumber(ExpressionNode node) {
-        return node instanceof NumberLiteralNode number ? number : null;
-    }
+	protected NumberLiteralNode castNumber(ExpressionNode node) {
+		return node instanceof NumberLiteralNode number ? number : null;
+	}
 
-    protected ArrayNode castArray(ExpressionNode node) {
-        return node instanceof ArrayNode array ? array : null;
-    }
+	protected ArrayNode castArray(ExpressionNode node) {
+		return node instanceof ArrayNode array ? array : null;
+	}
 
-    protected static String valueQuoteless(ExpressionNode node) {
-        return node instanceof StringLiteralNode string ? string.quoteless() : node.value();
-    }
+	protected static String valueQuoteless(ExpressionNode node) {
+		return node instanceof StringLiteralNode string ? string.quoteless() : node.value();
+	}
 
-    protected static String quote(String string) {
-        return '"' + string + '"';
-    }
+	protected static String quote(String string) {
+		return '"' + string + '"';
+	}
 
-    protected static StringLiteralNode stringNode(String value) {
-        return new StringLiteralNode(quote(value));
-    }
+	protected static StringLiteralNode stringNode(String value) {
+		return new StringLiteralNode(quote(value));
+	}
 
-    protected static NumberLiteralNode numberNode(int value) {
-        return new NumberLiteralNode(value + "");
-    }
+	protected static NumberLiteralNode numberNode(int value) {
+		return new NumberLiteralNode(value + "");
+	}
 
-    protected static StringLiteralNode stringFromBool(boolean bool) {
-        return stringNode(Boolean.toString(bool));
-    }
+	protected static StringLiteralNode stringFromBool(boolean bool) {
+		return stringNode(Boolean.toString(bool));
+	}
 
-    protected static ArrayNode arrayNode(List<String> list) {
-	    return new ArrayNode(list.stream()
-                .map(item -> new StringLiteralNode(quote(item)))
-                .collect(Collectors.toList())
-        );
-    }
+	protected static ArrayNode arrayNode(List<String> list) {
+		return new ArrayNode(list.stream()
+				.map(item -> new StringLiteralNode(quote(item)))
+				.collect(Collectors.toList())
+		);
+	}
 
 }

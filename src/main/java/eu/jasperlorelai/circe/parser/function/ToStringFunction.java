@@ -10,35 +10,35 @@ import eu.jasperlorelai.circe.parser.expression.NumberLiteralNode;
 
 public class ToStringFunction extends Function {
 
-    private NumberLiteralNode number;
-    private NumberLiteralNode radix;
+	private NumberLiteralNode number;
+	private NumberLiteralNode radix;
 
-    @NotNull
-    @Override
-    public ParameterType getTargetType() {
-        return NodeType.NUMBER.asParameterType();
-    }
+	@NotNull
+	@Override
+	public ParameterType getTargetType() {
+		return NodeType.NUMBER.asParameterType();
+	}
 
-    @Override
-    public void initializeTarget(ExpressionNode target) {
-        number = castNumber(target);
-    }
+	@Override
+	public void initializeTarget(ExpressionNode target) {
+		number = castNumber(target);
+	}
 
-    @NotNull
-    @Override
-    public List<ParameterType> getParameterTypes() {
-        return NodeType.NUMBER.asParameterTypes();
-    }
+	@NotNull
+	@Override
+	public List<ParameterType> getParameterTypes() {
+		return NodeType.NUMBER.asParameterTypes();
+	}
 
-    @Override
-    public void initializeArguments(List<ExpressionNode> arguments) {
-        radix = castNumber(arguments.get(0));
-    }
+	@Override
+	public void initializeArguments(List<ExpressionNode> arguments) {
+		radix = castNumber(arguments.get(0));
+	}
 
-    @NotNull
-    @Override
-    public ExpressionNode execute() {
-        return stringNode(Integer.toString(number.valueInteger(), radix.valueInteger()));
-    }
+	@NotNull
+	@Override
+	public ExpressionNode execute() {
+		return stringNode(Integer.toString(number.valueInteger(), radix.valueInteger()));
+	}
 
 }

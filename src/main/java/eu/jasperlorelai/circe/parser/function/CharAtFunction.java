@@ -11,39 +11,39 @@ import eu.jasperlorelai.circe.parser.expression.NumberLiteralNode;
 
 public class CharAtFunction extends Function {
 
-    private StringLiteralNode string;
-    private NumberLiteralNode index;
+	private StringLiteralNode string;
+	private NumberLiteralNode index;
 
-    @NotNull
-    @Override
-    public ParameterType getTargetType() {
-        return NodeType.STRING.asParameterType();
-    }
+	@NotNull
+	@Override
+	public ParameterType getTargetType() {
+		return NodeType.STRING.asParameterType();
+	}
 
-    @Override
-    public void initializeTarget(ExpressionNode target) {
-        string = castString(target);
-    }
+	@Override
+	public void initializeTarget(ExpressionNode target) {
+		string = castString(target);
+	}
 
-    @NotNull
-    @Override
-    public List<ParameterType> getParameterTypes() {
-        return NodeType.NUMBER.asParameterTypes();
-    }
+	@NotNull
+	@Override
+	public List<ParameterType> getParameterTypes() {
+		return NodeType.NUMBER.asParameterTypes();
+	}
 
-    @Override
-    public void initializeArguments(List<ExpressionNode> arguments) {
-        index = castNumber(arguments.get(0));
-    }
+	@Override
+	public void initializeArguments(List<ExpressionNode> arguments) {
+		index = castNumber(arguments.get(0));
+	}
 
-    @NotNull
-    @Override
-    public ExpressionNode execute() {
-        try {
-            return stringNode(string.quoteless().charAt(index.valueInteger()) + "");
-        } catch (IndexOutOfBoundsException e) {
-            throw formatException(e);
-        }
-    }
+	@NotNull
+	@Override
+	public ExpressionNode execute() {
+		try {
+			return stringNode(string.quoteless().charAt(index.valueInteger()) + "");
+		} catch (IndexOutOfBoundsException e) {
+			throw formatException(e);
+		}
+	}
 
 }

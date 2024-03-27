@@ -10,38 +10,38 @@ import eu.jasperlorelai.circe.parser.expression.util.*;
 
 public class PushFunction extends Function {
 
-    private ArrayNode array;
-    private StringLiteralNode elementString;
-    private NumberLiteralNode elementNumber;
+	private ArrayNode array;
+	private StringLiteralNode elementString;
+	private NumberLiteralNode elementNumber;
 
-    @NotNull
-    @Override
-    public ParameterType getTargetType() {
-        return NodeType.ARRAY.asParameterType();
-    }
+	@NotNull
+	@Override
+	public ParameterType getTargetType() {
+		return NodeType.ARRAY.asParameterType();
+	}
 
-    @Override
-    public void initializeTarget(ExpressionNode target) {
-        array = castArray(target);
-    }
+	@Override
+	public void initializeTarget(ExpressionNode target) {
+		array = castArray(target);
+	}
 
-    @NotNull
-    @Override
-    public List<ParameterType> getParameterTypes() {
-        return List.of(ParameterType.create(NodeType.STRING, NodeType.NUMBER));
-    }
+	@NotNull
+	@Override
+	public List<ParameterType> getParameterTypes() {
+		return List.of(ParameterType.create(NodeType.STRING, NodeType.NUMBER));
+	}
 
-    @Override
-    public void initializeArguments(List<ExpressionNode> arguments) {
-        elementString = castString(arguments.get(0));
-        elementNumber = castNumber(arguments.get(0));
-    }
+	@Override
+	public void initializeArguments(List<ExpressionNode> arguments) {
+		elementString = castString(arguments.get(0));
+		elementNumber = castNumber(arguments.get(0));
+	}
 
-    @NotNull
-    @Override
-    public ExpressionNode execute() {
-        array.array().add(elementString == null ? elementNumber : elementString);
-        return array;
-    }
+	@NotNull
+	@Override
+	public ExpressionNode execute() {
+		array.array().add(elementString == null ? elementNumber : elementString);
+		return array;
+	}
 
 }

@@ -7,10 +7,10 @@ import eu.jasperlorelai.circe.parser.expression.util.ExpressionNode;
 
 public class Variables {
 
-    private static final Map<String, ExpressionNode> variables = new HashMap<>();
+	private static final Map<String, ExpressionNode> variables = new HashMap<>();
 
-    public static Map<String, ExpressionNode> getVariables() {
-        return variables;
-    }
+	public static Map<String, ExpressionNode> getVariables() {
+		return variables;
+	}
 
 }

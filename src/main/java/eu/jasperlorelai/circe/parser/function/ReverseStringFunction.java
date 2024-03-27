@@ -8,23 +8,23 @@ import eu.jasperlorelai.circe.parser.expression.StringLiteralNode;
 
 public class ReverseStringFunction extends ZeroParamFunction {
 
-    private StringLiteralNode string;
+	private StringLiteralNode string;
 
-    @NotNull
-    @Override
-    public ParameterType getTargetType() {
-        return NodeType.STRING.asParameterType();
-    }
+	@NotNull
+	@Override
+	public ParameterType getTargetType() {
+		return NodeType.STRING.asParameterType();
+	}
 
-    @Override
-    public void initializeTarget(ExpressionNode target) {
-        string = castString(target);
-    }
+	@Override
+	public void initializeTarget(ExpressionNode target) {
+		string = castString(target);
+	}
 
-    @NotNull
-    @Override
-    public ExpressionNode execute() {
-        return stringNode(new StringBuilder(string.quoteless()).reverse().toString());
-    }
+	@NotNull
+	@Override
+	public ExpressionNode execute() {
+		return stringNode(new StringBuilder(string.quoteless()).reverse().toString());
+	}
 
 }

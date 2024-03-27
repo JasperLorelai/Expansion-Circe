@@ -10,24 +10,24 @@ import eu.jasperlorelai.circe.parser.expression.ArrayNode;
 
 public class ReverseArrayFunction extends ZeroParamFunction {
 
-    private ArrayNode array;
+	private ArrayNode array;
 
-    @NotNull
-    @Override
-    public ParameterType getTargetType() {
-        return NodeType.ARRAY.asParameterType();
-    }
+	@NotNull
+	@Override
+	public ParameterType getTargetType() {
+		return NodeType.ARRAY.asParameterType();
+	}
 
-    @Override
-    public void initializeTarget(ExpressionNode target) {
-        array = castArray(target);
-    }
+	@Override
+	public void initializeTarget(ExpressionNode target) {
+		array = castArray(target);
+	}
 
-    @NotNull
-    @Override
-    public ExpressionNode execute() {
-        Collections.reverse(array.array());
-        return array;
-    }
+	@NotNull
+	@Override
+	public ExpressionNode execute() {
+		Collections.reverse(array.array());
+		return array;
+	}
 
 }

@@ -9,23 +9,23 @@ import eu.jasperlorelai.circe.parser.expression.util.NodeType;
 
 public class ParameterType {
 
-    private final Set<NodeType> validTypes = new HashSet<>();
+	private final Set<NodeType> validTypes = new HashSet<>();
 
-    private ParameterType() {}
+	private ParameterType() {}
 
-    public static ParameterType create(NodeType ...validTypes) {
-        ParameterType type = new ParameterType();
-        type.validTypes.addAll(Arrays.asList(validTypes));
-        return type;
-    }
+	public static ParameterType create(NodeType ...validTypes) {
+		ParameterType type = new ParameterType();
+		type.validTypes.addAll(Arrays.asList(validTypes));
+		return type;
+	}
 
-    public boolean isValid(NodeType type) {
-        return validTypes.contains(type);
-    }
+	public boolean isValid(NodeType type) {
+		return validTypes.contains(type);
+	}
 
-    @Override
-    public String toString() {
-        return validTypes.stream().map(Enum::name).collect(Collectors.joining(" or "));
-    }
+	@Override
+	public String toString() {
+		return validTypes.stream().map(Enum::name).collect(Collectors.joining(" or "));
+	}
 
 }

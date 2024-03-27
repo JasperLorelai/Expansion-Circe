@@ -10,24 +10,24 @@ import eu.jasperlorelai.circe.parser.expression.ArrayNode;
 
 public class ToArrayFunction extends ZeroParamFunction {
 
-    private ExpressionNode node;
+	private ExpressionNode node;
 
-    @NotNull
-    @Override
-    public ParameterType getTargetType() {
-        // Any
-        return ParameterType.create(NodeType.values());
-    }
+	@NotNull
+	@Override
+	public ParameterType getTargetType() {
+		// Any
+		return ParameterType.create(NodeType.values());
+	}
 
-    @Override
-    public void initializeTarget(ExpressionNode target) {
-        node = target;
-    }
+	@Override
+	public void initializeTarget(ExpressionNode target) {
+		node = target;
+	}
 
-    @NotNull
-    @Override
-    public ExpressionNode execute() {
-        return new ArrayNode(Collections.singletonList(node));
-    }
+	@NotNull
+	@Override
+	public ExpressionNode execute() {
+		return new ArrayNode(Collections.singletonList(node));
+	}
 
 }

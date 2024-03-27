@@ -13,44 +13,44 @@ import eu.jasperlorelai.circe.parser.expression.StringLiteralNode;
 
 public class SplitFunction extends Function {
 
-    private StringLiteralNode string;
-    private StringLiteralNode pattern;
-    private NumberLiteralNode limit;
+	private StringLiteralNode string;
+	private StringLiteralNode pattern;
+	private NumberLiteralNode limit;
 
-    @NotNull
-    @Override
-    public ParameterType getTargetType() {
-        return NodeType.STRING.asParameterType();
-    }
+	@NotNull
+	@Override
+	public ParameterType getTargetType() {
+		return NodeType.STRING.asParameterType();
+	}
 
-    @Override
-    public void initializeTarget(ExpressionNode target) {
-        string = castString(target);
-    }
+	@Override
+	public void initializeTarget(ExpressionNode target) {
+		string = castString(target);
+	}
 
-    @NotNull
-    @Override
-    public List<ParameterType> getParameterTypes() {
-        return List.of(
-            NodeType.STRING.asParameterType(),
-            NodeType.NUMBER.asParameterType()
-        );
-    }
+	@NotNull
+	@Override
+	public List<ParameterType> getParameterTypes() {
+		return List.of(
+				NodeType.STRING.asParameterType(),
+				NodeType.NUMBER.asParameterType()
+		);
+	}
 
-    @Override
-    public void initializeArguments(List<ExpressionNode> arguments) {
-        pattern = castString(arguments.get(0));
-        limit = castNumber(arguments.get(1));
-    }
+	@Override
+	public void initializeArguments(List<ExpressionNode> arguments) {
+		pattern = castString(arguments.get(0));
+		limit = castNumber(arguments.get(1));
+	}
 
-    @NotNull
-    @Override
-    public ExpressionNode execute() {
-        try {
-            return arrayNode(Arrays.asList(string.quoteless().split(pattern.quoteless(), limit.valueInteger())));
-        } catch (PatternSyntaxException e) {
-            throw formatException(e);
-        }
-    }
+	@NotNull
+	@Override
+	public ExpressionNode execute() {
+		try {
+			return arrayNode(Arrays.asList(string.quoteless().split(pattern.quoteless(), limit.valueInteger())));
+		} catch (PatternSyntaxException e) {
+			throw formatException(e);
+		}
+	}
 
 }

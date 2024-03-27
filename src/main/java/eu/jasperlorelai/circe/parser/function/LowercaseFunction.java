@@ -8,23 +8,23 @@ import eu.jasperlorelai.circe.parser.expression.StringLiteralNode;
 
 public class LowercaseFunction extends ZeroParamFunction {
 
-    private StringLiteralNode string;
+	private StringLiteralNode string;
 
-    @NotNull
-    @Override
-    public ParameterType getTargetType() {
-        return NodeType.STRING.asParameterType();
-    }
+	@NotNull
+	@Override
+	public ParameterType getTargetType() {
+		return NodeType.STRING.asParameterType();
+	}
 
-    @Override
-    public void initializeTarget(ExpressionNode target) {
-        string = castString(target);
-    }
+	@Override
+	public void initializeTarget(ExpressionNode target) {
+		string = castString(target);
+	}
 
-    @NotNull
-    @Override
-    public ExpressionNode execute() {
-        return stringNode(string.quoteless().toLowerCase());
-    }
+	@NotNull
+	@Override
+	public ExpressionNode execute() {
+		return stringNode(string.quoteless().toLowerCase());
+	}
 
 }

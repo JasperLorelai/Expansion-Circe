@@ -9,27 +9,27 @@ import eu.jasperlorelai.circe.parser.expression.NumberLiteralNode;
 
 public class ToNumberFunction extends ZeroParamFunction {
 
-    private StringLiteralNode string;
+	private StringLiteralNode string;
 
-    @NotNull
-    @Override
-    public ParameterType getTargetType() {
-        return NodeType.STRING.asParameterType();
-    }
+	@NotNull
+	@Override
+	public ParameterType getTargetType() {
+		return NodeType.STRING.asParameterType();
+	}
 
-    @Override
-    public void initializeTarget(ExpressionNode target) {
-        string = castString(target);
-    }
+	@Override
+	public void initializeTarget(ExpressionNode target) {
+		string = castString(target);
+	}
 
-    @NotNull
-    @Override
-    public ExpressionNode execute() {
-        try {
-            return new NumberLiteralNode(Double.parseDouble(string.quoteless()) + "");
-        } catch (NumberFormatException e) {
-            throw formatException(e);
-        }
-    }
+	@NotNull
+	@Override
+	public ExpressionNode execute() {
+		try {
+			return new NumberLiteralNode(Double.parseDouble(string.quoteless()) + "");
+		} catch (NumberFormatException e) {
+			throw formatException(e);
+		}
+	}
 
 }

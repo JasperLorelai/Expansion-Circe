@@ -10,35 +10,35 @@ import eu.jasperlorelai.circe.parser.expression.StringLiteralNode;
 
 public class EndsWithFunction extends Function {
 
-    private StringLiteralNode string;
-    private StringLiteralNode substring;
+	private StringLiteralNode string;
+	private StringLiteralNode substring;
 
-    @NotNull
-    @Override
-    public ParameterType getTargetType() {
-        return NodeType.STRING.asParameterType();
-    }
+	@NotNull
+	@Override
+	public ParameterType getTargetType() {
+		return NodeType.STRING.asParameterType();
+	}
 
-    @Override
-    public void initializeTarget(ExpressionNode target) {
-        string = castString(target);
-    }
+	@Override
+	public void initializeTarget(ExpressionNode target) {
+		string = castString(target);
+	}
 
-    @NotNull
-    @Override
-    public List<ParameterType> getParameterTypes() {
-        return NodeType.STRING.asParameterTypes();
-    }
+	@NotNull
+	@Override
+	public List<ParameterType> getParameterTypes() {
+		return NodeType.STRING.asParameterTypes();
+	}
 
-    @Override
-    public void initializeArguments(List<ExpressionNode> arguments) {
-        substring = castString(arguments.get(0));
-    }
+	@Override
+	public void initializeArguments(List<ExpressionNode> arguments) {
+		substring = castString(arguments.get(0));
+	}
 
-    @NotNull
-    @Override
-    public ExpressionNode execute() {
-        return stringFromBool(string.quoteless().endsWith(substring.quoteless()));
-    }
+	@NotNull
+	@Override
+	public ExpressionNode execute() {
+		return stringFromBool(string.quoteless().endsWith(substring.quoteless()));
+	}
 
 }

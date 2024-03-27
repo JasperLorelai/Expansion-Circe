@@ -9,25 +9,25 @@ import eu.jasperlorelai.circe.parser.expression.StringLiteralNode;
 
 public class IsEmptyFunction extends ZeroParamFunction {
 
-    private StringLiteralNode string;
-    private ArrayNode array;
+	private StringLiteralNode string;
+	private ArrayNode array;
 
-    @NotNull
-    @Override
-    public ParameterType getTargetType() {
-        return ParameterType.create(NodeType.STRING, NodeType.ARRAY);
-    }
+	@NotNull
+	@Override
+	public ParameterType getTargetType() {
+		return ParameterType.create(NodeType.STRING, NodeType.ARRAY);
+	}
 
-    @Override
-    public void initializeTarget(ExpressionNode target) {
-        string = castString(target);
-        array = castArray(target);
-    }
+	@Override
+	public void initializeTarget(ExpressionNode target) {
+		string = castString(target);
+		array = castArray(target);
+	}
 
-    @NotNull
-    @Override
-    public ExpressionNode execute() {
-        return stringFromBool(string == null ? array.array().isEmpty() : string.quoteless().isEmpty());
-    }
+	@NotNull
+	@Override
+	public ExpressionNode execute() {
+		return stringFromBool(string == null ? array.array().isEmpty() : string.quoteless().isEmpty());
+	}
 
 }

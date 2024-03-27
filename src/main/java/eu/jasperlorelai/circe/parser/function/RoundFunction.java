@@ -8,23 +8,23 @@ import eu.jasperlorelai.circe.parser.expression.NumberLiteralNode;
 
 public class RoundFunction extends ZeroParamFunction {
 
-    private NumberLiteralNode number;
+	private NumberLiteralNode number;
 
-    @NotNull
-    @Override
-    public ParameterType getTargetType() {
-        return NodeType.NUMBER.asParameterType();
-    }
+	@NotNull
+	@Override
+	public ParameterType getTargetType() {
+		return NodeType.NUMBER.asParameterType();
+	}
 
-    @Override
-    public void initializeTarget(ExpressionNode target) {
-        number = castNumber(target);
-    }
+	@Override
+	public void initializeTarget(ExpressionNode target) {
+		number = castNumber(target);
+	}
 
-    @NotNull
-    @Override
-    public ExpressionNode execute() {
-        return numberNode(number.valueInteger());
-    }
+	@NotNull
+	@Override
+	public ExpressionNode execute() {
+		return numberNode(number.valueInteger());
+	}
 
 }

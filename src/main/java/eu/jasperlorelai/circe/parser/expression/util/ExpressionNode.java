@@ -4,10 +4,10 @@ import org.jetbrains.annotations.NotNull;
 
 public interface ExpressionNode {
 
-    @NotNull
-    NodeType getType();
+	@NotNull
+	NodeType getType();
 
-    @NotNull
-    String value();
+	@NotNull
+	String value();
 
 }

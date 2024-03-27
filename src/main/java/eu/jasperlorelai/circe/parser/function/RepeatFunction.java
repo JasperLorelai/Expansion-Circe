@@ -11,39 +11,39 @@ import eu.jasperlorelai.circe.parser.expression.StringLiteralNode;
 
 public class RepeatFunction extends Function {
 
-    private StringLiteralNode string;
-    private NumberLiteralNode amount;
+	private StringLiteralNode string;
+	private NumberLiteralNode amount;
 
-    @NotNull
-    @Override
-    public ParameterType getTargetType() {
-        return NodeType.STRING.asParameterType();
-    }
+	@NotNull
+	@Override
+	public ParameterType getTargetType() {
+		return NodeType.STRING.asParameterType();
+	}
 
-    @Override
-    public void initializeTarget(ExpressionNode target) {
-        string = castString(target);
-    }
+	@Override
+	public void initializeTarget(ExpressionNode target) {
+		string = castString(target);
+	}
 
-    @NotNull
-    @Override
-    public List<ParameterType> getParameterTypes() {
-        return NodeType.NUMBER.asParameterTypes();
-    }
+	@NotNull
+	@Override
+	public List<ParameterType> getParameterTypes() {
+		return NodeType.NUMBER.asParameterTypes();
+	}
 
-    @Override
-    public void initializeArguments(List<ExpressionNode> arguments) {
-        amount = castNumber(arguments.get(0));
-    }
+	@Override
+	public void initializeArguments(List<ExpressionNode> arguments) {
+		amount = castNumber(arguments.get(0));
+	}
 
-    @NotNull
-    @Override
-    public ExpressionNode execute() {
-        try {
-            return stringNode(string.quoteless().repeat(amount.valueInteger()));
-        } catch (IllegalArgumentException e) {
-            throw formatException(e);
-        }
-    }
+	@NotNull
+	@Override
+	public ExpressionNode execute() {
+		try {
+			return stringNode(string.quoteless().repeat(amount.valueInteger()));
+		} catch (IllegalArgumentException e) {
+			throw formatException(e);
+		}
+	}
 
 }

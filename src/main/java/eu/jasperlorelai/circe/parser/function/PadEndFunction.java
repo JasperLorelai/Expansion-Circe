@@ -13,42 +13,42 @@ import eu.jasperlorelai.circe.parser.expression.util.ExpressionNode;
 
 public class PadEndFunction extends Function {
 
-    private StringLiteralNode string;
-    private NumberLiteralNode minLength;
-    private StringLiteralNode padChar;
+	private StringLiteralNode string;
+	private NumberLiteralNode minLength;
+	private StringLiteralNode padChar;
 
-    @NotNull
-    @Override
-    public ParameterType getTargetType() {
-        return NodeType.STRING.asParameterType();
-    }
+	@NotNull
+	@Override
+	public ParameterType getTargetType() {
+		return NodeType.STRING.asParameterType();
+	}
 
-    @Override
-    public void initializeTarget(ExpressionNode target) {
-        string = castString(target);
-    }
+	@Override
+	public void initializeTarget(ExpressionNode target) {
+		string = castString(target);
+	}
 
-    @NotNull
-    @Override
-    public List<ParameterType> getParameterTypes() {
-        return List.of(
-                NodeType.NUMBER.asParameterType(),
-                NodeType.STRING.asParameterType()
-        );
-    }
+	@NotNull
+	@Override
+	public List<ParameterType> getParameterTypes() {
+		return List.of(
+				NodeType.NUMBER.asParameterType(),
+				NodeType.STRING.asParameterType()
+		);
+	}
 
-    @Override
-    public void initializeArguments(List<ExpressionNode> arguments) {
-        minLength = castNumber(arguments.get(0));
-        padChar = castString(arguments.get(1));
-    }
+	@Override
+	public void initializeArguments(List<ExpressionNode> arguments) {
+		minLength = castNumber(arguments.get(0));
+		padChar = castString(arguments.get(1));
+	}
 
-    @NotNull
-    @Override
-    public ExpressionNode execute() {
-        StringBuilder newString = new StringBuilder(string.quoteless());
-        while (minLength.valueInteger() > newString.length()) newString.append(padChar.quoteless());
-        return stringNode(newString.toString());
-    }
+	@NotNull
+	@Override
+	public ExpressionNode execute() {
+		StringBuilder newString = new StringBuilder(string.quoteless());
+		while (minLength.valueInteger() > newString.length()) newString.append(padChar.quoteless());
+		return stringNode(newString.toString());
+	}
 
 }

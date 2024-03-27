@@ -10,26 +10,27 @@ import eu.jasperlorelai.circe.tokenizer.type.util.TokenType;
 import eu.jasperlorelai.circe.tokenizer.type.util.TokenSuperType;
 
 public enum LiteralTokenType implements TokenType {
-    NUMBER("-?(\\d*\\.)?\\d+"),
-    STRING("\"(?:[^\"\\\\]|\\\\.)*\""),
-    ;
 
-    private final Pattern pattern;
+	NUMBER("-?(\\d*\\.)?\\d+"),
+	STRING("\"(?:[^\"\\\\]|\\\\.)*\""),
+	;
 
-    LiteralTokenType(@Language("RegExp") String regex) {
-        pattern = createPattern(regex);
-    }
+	private final Pattern pattern;
 
-    @NotNull
-    @Override
-    public Pattern regex() {
-        return pattern;
-    }
+	LiteralTokenType(@Language("RegExp") String regex) {
+		pattern = createPattern(regex);
+	}
 
-    @NotNull
-    @Override
-    public TokenSuperType type() {
-        return TokenSuperType.LITERAL;
-    }
+	@NotNull
+	@Override
+	public Pattern regex() {
+		return pattern;
+	}
+
+	@NotNull
+	@Override
+	public TokenSuperType type() {
+		return TokenSuperType.LITERAL;
+	}
 
 }

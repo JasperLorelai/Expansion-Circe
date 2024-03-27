@@ -9,25 +9,25 @@ import eu.jasperlorelai.circe.parser.expression.StringLiteralNode;
 
 public class SizeFunction extends ZeroParamFunction {
 
-    private ArrayNode array;
-    private StringLiteralNode string;
+	private ArrayNode array;
+	private StringLiteralNode string;
 
-    @NotNull
-    @Override
-    public ParameterType getTargetType() {
-        return ParameterType.create(NodeType.ARRAY, NodeType.STRING);
-    }
+	@NotNull
+	@Override
+	public ParameterType getTargetType() {
+		return ParameterType.create(NodeType.ARRAY, NodeType.STRING);
+	}
 
-    @Override
-    public void initializeTarget(ExpressionNode target) {
-        array = castArray(target);
-        string = castString(target);
-    }
+	@Override
+	public void initializeTarget(ExpressionNode target) {
+		array = castArray(target);
+		string = castString(target);
+	}
 
-    @NotNull
-    @Override
-    public ExpressionNode execute() {
-        return numberNode(array == null ? string.quoteless().length() : array.array().size());
-    }
+	@NotNull
+	@Override
+	public ExpressionNode execute() {
+		return numberNode(array == null ? string.quoteless().length() : array.array().size());
+	}
 
 }
