@@ -17,9 +17,19 @@ public class SubstringFunction extends Function {
 
     @NotNull
     @Override
+    public ParameterType getTargetType() {
+        return NodeType.STRING.asParameterType();
+    }
+
+    @Override
+    public void initializeTarget(ExpressionNode target) {
+        string = castString(target);
+    }
+
+    @NotNull
+    @Override
     public List<ParameterType> getParameterTypes() {
         return List.of(
-            NodeType.STRING.asParameterType(),
             NodeType.NUMBER.asParameterType(),
             NodeType.NUMBER.asParameterType()
         );
@@ -27,9 +37,8 @@ public class SubstringFunction extends Function {
 
     @Override
     public void initializeArguments(List<ExpressionNode> arguments) {
-        string = castString(arguments.get(0));
-        startIndex = castNumber(arguments.get(1));
-        endIndex = castNumber(arguments.get(2));
+        startIndex = castNumber(arguments.get(0));
+        endIndex = castNumber(arguments.get(1));
     }
 
     @NotNull

@@ -16,17 +16,24 @@ public class SubtractFunction extends Function {
 
     @NotNull
     @Override
+    public ParameterType getTargetType() {
+        return NodeType.ARRAY.asParameterType();
+    }
+
+    @Override
+    public void initializeTarget(ExpressionNode target) {
+        arrayFirst = castArray(target);
+    }
+
+    @NotNull
+    @Override
     public List<ParameterType> getParameterTypes() {
-        return List.of(
-                NodeType.ARRAY.asParameterType(),
-                NodeType.ARRAY.asParameterType()
-        );
+        return NodeType.ARRAY.asParameterTypes();
     }
 
     @Override
     public void initializeArguments(List<ExpressionNode> arguments) {
-        arrayFirst = castArray(arguments.get(0));
-        arraySecond = castArray(arguments.get(1));
+        arraySecond = castArray(arguments.get(0));
     }
 
     @NotNull

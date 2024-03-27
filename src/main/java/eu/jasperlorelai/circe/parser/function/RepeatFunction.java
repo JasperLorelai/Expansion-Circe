@@ -16,17 +16,24 @@ public class RepeatFunction extends Function {
 
     @NotNull
     @Override
+    public ParameterType getTargetType() {
+        return NodeType.STRING.asParameterType();
+    }
+
+    @Override
+    public void initializeTarget(ExpressionNode target) {
+        string = castString(target);
+    }
+
+    @NotNull
+    @Override
     public List<ParameterType> getParameterTypes() {
-        return List.of(
-            NodeType.STRING.asParameterType(),
-            NodeType.NUMBER.asParameterType()
-        );
+        return NodeType.NUMBER.asParameterTypes();
     }
 
     @Override
     public void initializeArguments(List<ExpressionNode> arguments) {
-        string = castString(arguments.get(0));
-        amount = castNumber(arguments.get(1));
+        amount = castNumber(arguments.get(0));
     }
 
     @NotNull

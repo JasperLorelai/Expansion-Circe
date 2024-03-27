@@ -15,17 +15,24 @@ public class StartsWithFunction extends Function {
 
     @NotNull
     @Override
+    public ParameterType getTargetType() {
+        return NodeType.STRING.asParameterType();
+    }
+
+    @Override
+    public void initializeTarget(ExpressionNode target) {
+        string = castString(target);
+    }
+
+    @NotNull
+    @Override
     public List<ParameterType> getParameterTypes() {
-        return List.of(
-            NodeType.STRING.asParameterType(),
-            NodeType.STRING.asParameterType()
-        );
+        return NodeType.STRING.asParameterTypes();
     }
 
     @Override
     public void initializeArguments(List<ExpressionNode> arguments) {
-        string = castString(arguments.get(0));
-        substring = castString(arguments.get(1));
+        substring = castString(arguments.get(0));
     }
 
     @NotNull

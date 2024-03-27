@@ -3,6 +3,8 @@ package eu.jasperlorelai.circe.parser;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.jetbrains.annotations.Nullable;
+
 import eu.jasperlorelai.circe.exeption.*;
 import eu.jasperlorelai.circe.tokenizer.type.*;
 import eu.jasperlorelai.circe.parser.expression.*;
@@ -10,6 +12,7 @@ import eu.jasperlorelai.circe.tokenizer.Tokenizer;
 import eu.jasperlorelai.circe.tokenizer.Tokenizer.Token;
 import eu.jasperlorelai.circe.tokenizer.type.util.TokenType;
 import eu.jasperlorelai.circe.parser.function.util.Variables;
+import eu.jasperlorelai.circe.tokenizer.type.util.TokenSuperType;
 import eu.jasperlorelai.circe.parser.expression.util.ExpressionNode;
 
 public class Parser {
@@ -46,11 +49,23 @@ public class Parser {
 
     private ExpressionNode expression() {
         if (lookahead == null) return null;
-        return switch (lookahead.tokenType().type()) {
-            case FUNCTION -> function();
+        ExpressionNode node = switch (lookahead.tokenType().type()) {
+            case FUNCTION -> function(null);
             case LITERAL -> literal();
             case SPECIAL -> special();
         };
+        return tryInvoke(node);
+    }
+
+    private ExpressionNode tryInvoke(ExpressionNode node) {
+        if (lookahead == null || lookahead.tokenType() != SpecialTokenType.DOT) return node;
+
+        nextToken();
+        if (lookahead == null) throw new ParserException("Expected function name after '.', instead received nothing.");
+        if (lookahead.tokenType().type() != TokenSuperType.FUNCTION) {
+            throw new ParserException("Expected function name after '.', instead received: " + lookahead.tokenType() + " '" + lookahead.value() + "'");
+        }
+        return tryInvoke(function(node));
     }
 
     private ExpressionNode special() {
@@ -63,7 +78,7 @@ public class Parser {
         };
     }
 
-    private ExpressionNode function() {
+    private ExpressionNode function(@Nullable ExpressionNode target) {
         if (lookahead == null) return null;
         String functionName = lookahead.value();
         FunctionNode node = new FunctionNode(lookahead);
@@ -101,7 +116,13 @@ public class Parser {
 
         if (awaitingArg) throw new ParserException("Expected argument after ',' in function '" + functionName + "'.");
         if (!closed) throw new ParserException("Function '" + functionName + "' does not end with ')'");
-        node.process(arguments);
+
+        if (target == null) {
+            if (arguments.isEmpty()) throw new ParserException("Function '" + functionName + "' is not invoked on any target expression.");
+            else target = arguments.remove(0);
+        }
+
+        node.process(target, arguments);
         return node;
     }
 

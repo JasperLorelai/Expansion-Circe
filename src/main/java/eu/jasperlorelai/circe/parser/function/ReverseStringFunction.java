@@ -1,26 +1,24 @@
 package eu.jasperlorelai.circe.parser.function;
 
-import java.util.List;
-
 import org.jetbrains.annotations.NotNull;
 
 import eu.jasperlorelai.circe.parser.function.util.*;
 import eu.jasperlorelai.circe.parser.expression.util.*;
 import eu.jasperlorelai.circe.parser.expression.StringLiteralNode;
 
-public class ReverseStringFunction extends Function {
+public class ReverseStringFunction extends ZeroParamFunction {
 
     private StringLiteralNode string;
 
     @NotNull
     @Override
-    public List<ParameterType> getParameterTypes() {
-        return NodeType.STRING.asParameterTypes();
+    public ParameterType getTargetType() {
+        return NodeType.STRING.asParameterType();
     }
 
     @Override
-    public void initializeArguments(List<ExpressionNode> arguments) {
-        string = castString(arguments.get(0));
+    public void initializeTarget(ExpressionNode target) {
+        string = castString(target);
     }
 
     @NotNull

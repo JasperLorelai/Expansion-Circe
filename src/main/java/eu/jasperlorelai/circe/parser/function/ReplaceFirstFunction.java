@@ -17,9 +17,19 @@ public class ReplaceFirstFunction extends Function {
 
     @NotNull
     @Override
+    public ParameterType getTargetType() {
+        return NodeType.STRING.asParameterType();
+    }
+
+    @Override
+    public void initializeTarget(ExpressionNode target) {
+        string = castString(target);
+    }
+
+    @NotNull
+    @Override
     public List<ParameterType> getParameterTypes() {
         return List.of(
-            NodeType.STRING.asParameterType(),
             NodeType.STRING.asParameterType(),
             NodeType.STRING.asParameterType()
         );
@@ -27,9 +37,8 @@ public class ReplaceFirstFunction extends Function {
 
     @Override
     public void initializeArguments(List<ExpressionNode> arguments) {
-        string = castString(arguments.get(0));
-        pattern = castString(arguments.get(1));
-        replacement = castString(arguments.get(2));
+        pattern = castString(arguments.get(0));
+        replacement = castString(arguments.get(1));
     }
 
     @NotNull

@@ -17,6 +17,7 @@ public enum SpecialTokenType implements TokenType {
     DOLLAR("\\$"),
     EQUALS("="),
     COMMA(","),
+    DOT("\\."),
     COMMA_COLON(";"),
     WHITESPACE("[\n\r\s]+"),
     SINGLE_COMMENT("//.*[\n\r]"),

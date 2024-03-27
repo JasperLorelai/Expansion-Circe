@@ -458,5 +458,11 @@ public class CirceTests {
 		assertEquals("#ffffff", new Parser().parse(code));
 	}
 
+	@Test
+	void test67() {
+		String code = "\"Hello world!\".split(\" \", 0).elementAt(1).charAt(0)";
+		assertEquals("w", new Parser().parse(code));
+	}
+
 }
 

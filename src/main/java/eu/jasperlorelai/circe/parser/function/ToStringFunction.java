@@ -15,17 +15,24 @@ public class ToStringFunction extends Function {
 
     @NotNull
     @Override
+    public ParameterType getTargetType() {
+        return NodeType.NUMBER.asParameterType();
+    }
+
+    @Override
+    public void initializeTarget(ExpressionNode target) {
+        number = castNumber(target);
+    }
+
+    @NotNull
+    @Override
     public List<ParameterType> getParameterTypes() {
-        return List.of(
-                NodeType.NUMBER.asParameterType(),
-                NodeType.NUMBER.asParameterType()
-        );
+        return NodeType.NUMBER.asParameterTypes();
     }
 
     @Override
     public void initializeArguments(List<ExpressionNode> arguments) {
-        number = castNumber(arguments.get(0));
-        radix = castNumber(arguments.get(1));
+        radix = castNumber(arguments.get(0));
     }
 
     @NotNull

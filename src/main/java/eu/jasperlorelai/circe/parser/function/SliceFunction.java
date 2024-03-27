@@ -18,9 +18,19 @@ public class SliceFunction extends Function {
 
     @NotNull
     @Override
+    public ParameterType getTargetType() {
+        return NodeType.ARRAY.asParameterType();
+    }
+
+    @Override
+    public void initializeTarget(ExpressionNode target) {
+        array = castArray(target);
+    }
+
+    @NotNull
+    @Override
     public List<ParameterType> getParameterTypes() {
         return List.of(
-                NodeType.ARRAY.asParameterType(),
                 NodeType.NUMBER.asParameterType(),
                 NodeType.NUMBER.asParameterType()
         );
@@ -28,9 +38,8 @@ public class SliceFunction extends Function {
 
     @Override
     public void initializeArguments(List<ExpressionNode> arguments) {
-        array = castArray(arguments.get(0));
-        start = castNumber(arguments.get(1));
-        end = castNumber(arguments.get(2));
+        start = castNumber(arguments.get(0));
+        end = castNumber(arguments.get(1));
     }
 
     @NotNull

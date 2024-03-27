@@ -18,17 +18,26 @@ public class EqualsFunction extends Function {
 
     @NotNull
     @Override
+    public ParameterType getTargetType() {
+        return ParameterType.create(NodeType.STRING, NodeType.ARRAY);
+    }
+
+    @Override
+    public void initializeTarget(ExpressionNode target) {
+        stringFirst = castString(target);
+        arrayFirst = castArray(target);
+    }
+
+    @NotNull
+    @Override
     public List<ParameterType> getParameterTypes() {
-        ParameterType arrayOrString = ParameterType.create(NodeType.STRING, NodeType.ARRAY);
-        return List.of(arrayOrString, arrayOrString);
+        return List.of(ParameterType.create(NodeType.STRING, NodeType.ARRAY));
     }
 
     @Override
     public void initializeArguments(List<ExpressionNode> arguments) {
-        stringFirst = castString(arguments.get(0));
-        stringSecond = castString(arguments.get(1));
-        arrayFirst = castArray(arguments.get(0));
-        arraySecond = castArray(arguments.get(1));
+        stringSecond = castString(arguments.get(0));
+        arraySecond = castArray(arguments.get(0));
     }
 
     @NotNull

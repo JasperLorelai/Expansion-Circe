@@ -1,26 +1,24 @@
 package eu.jasperlorelai.circe.parser.function;
 
-import java.util.List;
-
 import org.jetbrains.annotations.NotNull;
 
 import eu.jasperlorelai.circe.parser.function.util.*;
 import eu.jasperlorelai.circe.parser.expression.util.*;
 import eu.jasperlorelai.circe.parser.expression.NumberLiteralNode;
 
-public class UnicodeFunction extends Function {
+public class UnicodeFunction extends ZeroParamFunction {
 
     private NumberLiteralNode code;
 
     @NotNull
     @Override
-    public List<ParameterType> getParameterTypes() {
-        return NodeType.NUMBER.asParameterTypes();
+    public ParameterType getTargetType() {
+        return NodeType.NUMBER.asParameterType();
     }
 
     @Override
-    public void initializeArguments(List<ExpressionNode> arguments) {
-        code = castNumber(arguments.get(0));
+    public void initializeTarget(ExpressionNode target) {
+        code = castNumber(target);
     }
 
     @NotNull

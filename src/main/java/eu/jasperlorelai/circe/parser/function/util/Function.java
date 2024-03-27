@@ -1,7 +1,7 @@
 package eu.jasperlorelai.circe.parser.function.util;
 
 import java.util.List;
-import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -22,7 +22,12 @@ public abstract class Function {
     }
 
     @NotNull
+    public abstract ParameterType getTargetType();
+
+    @NotNull
     public abstract List<ParameterType> getParameterTypes();
+
+    public abstract void initializeTarget(ExpressionNode target);
 
     public abstract void initializeArguments(List<ExpressionNode> arguments);
 
@@ -66,9 +71,10 @@ public abstract class Function {
     }
 
     protected static ArrayNode arrayNode(List<String> list) {
-        List<ExpressionNode> newList = new ArrayList<>();
-        list.forEach(item -> newList.add(new StringLiteralNode(quote(item))));
-        return new ArrayNode(newList);
+	    return new ArrayNode(list.stream()
+                .map(item -> new StringLiteralNode(quote(item)))
+                .collect(Collectors.toList())
+        );
     }
 
 }

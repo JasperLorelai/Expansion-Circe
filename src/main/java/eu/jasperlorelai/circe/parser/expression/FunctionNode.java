@@ -23,8 +23,9 @@ public class FunctionNode implements ExpressionNode {
         function = type.createFunction();
     }
 
-    public void process(List<ExpressionNode> arguments) {
+    public void process(ExpressionNode target, List<ExpressionNode> arguments) {
         // Convert all function nodes to other node types.
+        if (target instanceof FunctionNode fun) target = fun.getFunction().execute();
         List<ExpressionNode> localArgs = new ArrayList<>();
         for (ExpressionNode node : arguments) {
             if (node instanceof FunctionNode fun) localArgs.add(fun.getFunction().execute());
@@ -34,6 +35,10 @@ public class FunctionNode implements ExpressionNode {
         // Validate that argument type matches parameter type.
         List<ParameterType> paramTypes = function.getParameterTypes();
         if (localArgs.size() != paramTypes.size()) throw new ParserException("Function '" + functionName + "' expects " + paramTypes.size() + " arguments, but the supplied amount was " + localArgs.size());
+
+        ParameterType targetType = function.getTargetType();
+        if (!targetType.isValid(target.getType())) throw new ParserException("Function '" + functionName + "' has target of " + target.getType() + " type defined when '" + targetType + " was expected'.");
+        function.initializeTarget(target);
 
         for (int i = 0; i < paramTypes.size(); i++) {
             ParameterType parameter = paramTypes.get(i);

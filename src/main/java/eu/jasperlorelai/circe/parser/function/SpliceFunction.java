@@ -19,9 +19,19 @@ public class SpliceFunction extends Function {
 
     @NotNull
     @Override
+    public ParameterType getTargetType() {
+        return NodeType.ARRAY.asParameterType();
+    }
+
+    @Override
+    public void initializeTarget(ExpressionNode target) {
+        array = castArray(target);
+    }
+
+    @NotNull
+    @Override
     public List<ParameterType> getParameterTypes() {
         return List.of(
-                NodeType.ARRAY.asParameterType(),
                 NodeType.NUMBER.asParameterType(),
                 NodeType.NUMBER.asParameterType(),
                 NodeType.ARRAY.asParameterType()
@@ -30,10 +40,9 @@ public class SpliceFunction extends Function {
 
     @Override
     public void initializeArguments(List<ExpressionNode> arguments) {
-        array = castArray(arguments.get(0));
-        index = castNumber(arguments.get(1));
-        deleteCount = castNumber(arguments.get(2));
-        arrayAdd = castArray(arguments.get(3));
+        index = castNumber(arguments.get(0));
+        deleteCount = castNumber(arguments.get(1));
+        arrayAdd = castArray(arguments.get(2));
     }
 
     @NotNull

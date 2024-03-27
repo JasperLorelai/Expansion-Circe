@@ -17,10 +17,21 @@ public class PadStartFunction extends Function {
     private NumberLiteralNode minLength;
     private StringLiteralNode padChar;
 
+    @NotNull
     @Override
-    public @NotNull List<ParameterType> getParameterTypes() {
+    public ParameterType getTargetType() {
+        return NodeType.STRING.asParameterType();
+    }
+
+    @Override
+    public void initializeTarget(ExpressionNode target) {
+        string = castString(target);
+    }
+
+    @NotNull
+    @Override
+    public List<ParameterType> getParameterTypes() {
         return List.of(
-                NodeType.STRING.asParameterType(),
                 NodeType.NUMBER.asParameterType(),
                 NodeType.STRING.asParameterType()
         );
@@ -28,13 +39,13 @@ public class PadStartFunction extends Function {
 
     @Override
     public void initializeArguments(List<ExpressionNode> arguments) {
-        string = castString(arguments.get(0));
-        minLength = castNumber(arguments.get(1));
-        padChar = castString(arguments.get(2));
+        minLength = castNumber(arguments.get(0));
+        padChar = castString(arguments.get(1));
     }
 
+    @NotNull
     @Override
-    public @NotNull ExpressionNode execute() {
+    public ExpressionNode execute() {
         StringBuilder newString = new StringBuilder();
         String quoteless = string.quoteless();
         int length = quoteless.length();

@@ -19,18 +19,25 @@ public class UnshiftFunction extends Function {
 
     @NotNull
     @Override
+    public ParameterType getTargetType() {
+        return NodeType.ARRAY.asParameterType();
+    }
+
+    @Override
+    public void initializeTarget(ExpressionNode target) {
+        array = castArray(target);
+    }
+
+    @NotNull
+    @Override
     public List<ParameterType> getParameterTypes() {
-        return List.of(
-            NodeType.ARRAY.asParameterType(),
-            ParameterType.create(NodeType.STRING, NodeType.NUMBER)
-        );
+        return List.of(ParameterType.create(NodeType.STRING, NodeType.NUMBER));
     }
 
     @Override
     public void initializeArguments(List<ExpressionNode> arguments) {
-        array = castArray(arguments.get(0));
-        elementString = castString(arguments.get(1));
-        elementNumber = castNumber(arguments.get(1));
+        elementString = castString(arguments.get(0));
+        elementNumber = castNumber(arguments.get(0));
     }
 
     @NotNull

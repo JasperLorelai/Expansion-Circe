@@ -1,6 +1,5 @@
 package eu.jasperlorelai.circe.parser.function;
 
-import java.util.List;
 import java.util.Collections;
 
 import org.jetbrains.annotations.NotNull;
@@ -9,23 +8,25 @@ import eu.jasperlorelai.circe.parser.function.util.*;
 import eu.jasperlorelai.circe.parser.expression.util.*;
 import eu.jasperlorelai.circe.parser.expression.ArrayNode;
 
-public class ToArrayFunction extends Function {
+public class ToArrayFunction extends ZeroParamFunction {
 
     private ExpressionNode node;
 
+    @NotNull
     @Override
-    public @NotNull List<ParameterType> getParameterTypes() {
+    public ParameterType getTargetType() {
         // Any
-        return List.of(ParameterType.create(NodeType.values()));
+        return ParameterType.create(NodeType.values());
     }
 
     @Override
-    public void initializeArguments(List<ExpressionNode> arguments) {
-        node = arguments.get(0);
+    public void initializeTarget(ExpressionNode target) {
+        node = target;
     }
 
+    @NotNull
     @Override
-    public @NotNull ExpressionNode execute() {
+    public ExpressionNode execute() {
         return new ArrayNode(Collections.singletonList(node));
     }
 

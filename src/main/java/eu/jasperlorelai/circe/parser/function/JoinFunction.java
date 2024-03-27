@@ -17,17 +17,24 @@ public class JoinFunction extends Function {
 
     @NotNull
     @Override
+    public ParameterType getTargetType() {
+        return NodeType.ARRAY.asParameterType();
+    }
+
+    @Override
+    public void initializeTarget(ExpressionNode target) {
+        array = castArray(target);
+    }
+
+    @NotNull
+    @Override
     public List<ParameterType> getParameterTypes() {
-        return List.of(
-            NodeType.ARRAY.asParameterType(),
-            NodeType.STRING.asParameterType()
-        );
+        return NodeType.STRING.asParameterTypes();
     }
 
     @Override
     public void initializeArguments(List<ExpressionNode> arguments) {
-        array = castArray(arguments.get(0));
-        delimiter = castString(arguments.get(1));
+        delimiter = castString(arguments.get(0));
     }
 
     @NotNull
