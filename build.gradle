@@ -31,6 +31,10 @@ dependencies {
 shadowJar {
     configurations = [project.configurations.shadow]
 
+    manifest {
+        attributes "Main-Class": "Program"
+    }
+
     relocate("net.objecthunter.exp4j", "com.jasperlorelai.circe.shaded.net.objecthunter.exp4j")
 
     archiveClassifier.set("")
