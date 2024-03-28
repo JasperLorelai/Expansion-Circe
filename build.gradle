@@ -22,6 +22,10 @@ dependencies {
     implementation("io.papermc.paper:paper-api:1.20.2-R0.1-SNAPSHOT")
 
     shadow("net.objecthunter:exp4j:0.4.8")
+
+    testImplementation("net.objecthunter:exp4j:0.4.8")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 shadowJar {
@@ -34,4 +38,8 @@ shadowJar {
 
 artifacts {
     archives shadowJar
+}
+
+test {
+    useJUnitPlatform()
 }

@@ -1,0 +1,32 @@
+name: 🚀 Test
+permissions:
+  checks: write
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  test:
+    name: 🚀 Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+
+      - name: 📂 Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: adopt
+          java-version: 17
+
+      - name: 📂 Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: 🧱 Build
+        run: ./gradlew build
+
+      - name: 📜 Publish Test Report
+        uses: mikepenz/action-junit-report@v4
+        if: success() || failure()
+        with:
+          report_paths: "build/test-results/test/TEST-*.xml"
